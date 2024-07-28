@@ -6,7 +6,9 @@ const Teacher = require('../models/teacherSchema.js');
 const Subject = require('../models/subjectSchema.js');
 const Notice = require('../models/noticeSchema.js');
 const Complain = require('../models/complainSchema.js');
-
+const crypto = require('crypto');
+// const bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer');
 // const adminRegister = async (req, res) => {
 //     try {
 //         const salt = await bcrypt.genSalt(10);
@@ -113,6 +115,62 @@ const getAdminDetail = async (req, res) => {
     }
 }
 
+
+
+
+
+const { sendResetPasswordEmail } = require('../utils/email');
+
+const forgotPassword = async (req, res) => {
+    try {
+        const { email } = req.body;
+        console.log('Received email:', email);
+
+        const admin = await Admin.findOne({ email });
+        if (!admin) {
+            console.log('Email not found');
+            return res.status(400).json({ message: 'Email not found' });
+        }
+
+        const token = crypto.randomBytes(20).toString('hex');
+        admin.resetPasswordToken = token;
+        admin.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+        await admin.save();
+
+        const resetUrl = `http://${req.headers.host}/reset-password/${token}`;
+        console.log('Reset URL:', resetUrl);
+        await sendResetPasswordEmail(email, resetUrl);
+
+        res.status(200).json({ message: 'Password reset link sent' });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+};
+
+
+const resetPassword = async (req, res) => {
+    try {
+        const { token, password } = req.body;
+        const admin = await Admin.findOne({
+            resetPasswordToken: token,
+            resetPasswordExpires: { $gt: Date.now() }
+        });
+        if (!admin) {
+            return res.status(400).json({ message: 'Invalid or expired token' });
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        admin.password = await bcrypt.hash(password, salt);
+        admin.resetPasswordToken = undefined;
+        admin.resetPasswordExpires = undefined;
+        await admin.save();
+
+        res.status(200).json({ message: 'Password reset successful' });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+};
+
 // const deleteAdmin = async (req, res) => {
 //     try {
 //         const result = await Admin.findByIdAndDelete(req.params.id)
@@ -149,4 +207,4 @@ const getAdminDetail = async (req, res) => {
 
 // module.exports = { adminRegister, adminLogIn, getAdminDetail, deleteAdmin, updateAdmin };
 
-module.exports = { adminRegister, adminLogIn, getAdminDetail };
+module.exports = { adminRegister, adminLogIn, getAdminDetail, forgotPassword, resetPassword };

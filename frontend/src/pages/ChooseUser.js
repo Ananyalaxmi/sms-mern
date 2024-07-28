@@ -142,11 +142,19 @@ const ChooseUser = ({ visitor }) => {
 export default ChooseUser;
 
 const StyledContainer = styled.div`
-  background: linear-gradient(to bottom, #411d70, #19118b);
-  height: 120vh;
+  background:linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%);
+  height: 100vh;
+  width: 100vw;
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 2rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 0;
+  overflow: hidden;
+  box-sizing: border-box;
 `;
 
 const StyledPaper = styled(Paper)`

@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 // const { adminRegister, adminLogIn, deleteAdmin, getAdminDetail, updateAdmin } = require('../controllers/admin-controller.js');
 
-const { adminRegister, adminLogIn, getAdminDetail} = require('../controllers/admin-controller.js');
+const { adminRegister, adminLogIn, getAdminDetail,forgotPassword, resetPassword} = require('../controllers/admin-controller.js');
 
 const { sclassCreate, sclassList, deleteSclass, deleteSclasses, getSclassDetail, getSclassStudents } = require('../controllers/class-controller.js');
 const { complainCreate, complainList } = require('../controllers/complain-controller.js');
@@ -28,7 +28,8 @@ const { teacherRegister, teacherLogIn, getTeachers, getTeacherDetail, deleteTeac
 // Admin
 router.post('/AdminReg', adminRegister);
 router.post('/AdminLogin', adminLogIn);
-
+router.post('/AdminForgotPassword', forgotPassword);  // New route
+router.post('/AdminResetPassword', resetPassword);
 router.get("/Admin/:id", getAdminDetail)
 // router.delete("/Admin/:id", deleteAdmin)
 
@@ -38,7 +39,8 @@ router.get("/Admin/:id", getAdminDetail)
 
 router.post('/StudentReg', studentRegister);
 router.post('/StudentLogin', studentLogIn)
-
+// router.post('/StudentForgotPassword', studentForgotPassword);  // New route
+// router.post('/StudentResetPassword', studentResetPassword); 
 router.get("/Students/:id", getStudents)
 router.get("/Student/:id", getStudentDetail)
 
@@ -62,7 +64,8 @@ router.put('/RemoveStudentAtten/:id', removeStudentAttendance)
 
 router.post('/TeacherReg', teacherRegister);
 router.post('/TeacherLogin', teacherLogIn)
-
+// router.post('/TeacherForgotPassword', teacherForgotPassword);  // New route
+// router.post('/TeacherResetPassword', teacherResetPassword);  
 router.get("/Teachers/:id", getTeachers)
 router.get("/Teacher/:id", getTeacherDetail)
 

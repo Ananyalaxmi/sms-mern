@@ -14,34 +14,73 @@ const TeacherProfile = () => {
   const teachSchool = currentUser.school
 
   return (
-    <>
+    <Container>
       <ProfileCard>
+      <BackgroundImage />
         <ProfileCardContent>
-          <ProfileText>Name: {currentUser.name}</ProfileText>
-          <ProfileText>Email: {currentUser.email}</ProfileText>
-          <ProfileText>Class: {teachSclass.sclassName}</ProfileText>
-          <ProfileText>Subject: {teachSubject.subName}</ProfileText>
-          <ProfileText>School: {teachSchool.schoolName}</ProfileText>
+          <ProfileText><strong>Name: </strong>{currentUser.name}</ProfileText>
+          <ProfileText><strong>Email:</strong> {currentUser.email}</ProfileText>
+          <ProfileText><strong>Class: </strong>{teachSclass.sclassName}</ProfileText>
+          <ProfileText><strong>Subject: </strong>{teachSubject.subName}</ProfileText>
+          <ProfileText><strong>School: </strong>{teachSchool.schoolName}</ProfileText>
         </ProfileCardContent>
       </ProfileCard>
-    </>
+    </Container>
   )
 }
 
+
+
 export default TeacherProfile
 
-const ProfileCard = styled(Card)`
-  margin: 20px;
-  width: 400px;
-  border-radius: 10px;
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg,#87bdd8, #333);
 `;
 
+const ProfileCard = styled(Card)`
+  margin: 20px auto;
+  width: 500px;
+  height: 250px;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+`;
+
+const BackgroundImage = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('src/assets/bg1.png');
+  background-size: cover;
+  background-position: center;
+  filter: blur(5px);
+  z-index: -1;
+`;
 const ProfileCardContent = styled(CardContent)`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center; /* Center items vertically */
+  align-items: flex-start; /* Center items horizontally */
+  height: 100%; /* Ensure it takes full height of the card */
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  font-family: 'Roboto', sans-serif;
+
 `;
 
 const ProfileText = styled(Typography)`
-  margin: 10px;
+  margin: 10px 0;
+  font-family: 'Roboto', sans-serif; /* Apply font family to each text element */
+  font-weight: 400; /* Normal weight for regular text */
+  font-size: 18px; /* Adjust font size as needed */
+  font-style: italic;
+  text-align: left;
+  width:100%;
 `;

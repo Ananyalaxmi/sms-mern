@@ -8,23 +8,23 @@ import { LightPurpleButton } from '../components/buttonStyles';
 const Homepage = () => {
     return (
         <StyledContainer>
-            <Grid container spacing={0}>
+            <Grid container spacing={5}>
                 <Grid item xs={12} md={6}>
-                    <img src={Students} alt="students" style={{ width: '100%' }} />
+                    <img src={Students} alt="students" style={{width: '100%', height: 'auto',  marginBottom: '10px', objectFit: 'cover' }} />
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <StyledPaper elevation={3}>
                         <StyledTitle>
-                            Welcome to
-                            <br />
-                            School Management
-                            <br />
-                            System
+                            Welcome to GradeUp
+                
                         </StyledTitle>
                         <StyledText>
-                            Streamline school management, class organization, and add students and faculty.
-                            Seamlessly track attendance, assess performance, and provide feedback.
-                            Access records, view marks, and communicate effortlessly.
+                        Welcome to GradeUp, the ultimate platform for
+                         seamless school management. Whether you're an administrator, 
+                         teacher, or student, GradeUp offers an intuitive experience tailored to your needs.
+                         Admins can effortlessly organize classes, subjects, and faculty, while teachers manage their 
+                         student lists and track progress with ease. Students stay informed with access to their profiles, assignments, 
+                        and attendance records. Empower your educational journey with GradeUp, where efficiency meets excellence.
                         </StyledText>
                         <StyledBox>
                             <StyledLink to="/choose">
@@ -33,11 +33,11 @@ const Homepage = () => {
                                 </LightPurpleButton>
                             </StyledLink>
                             <StyledLink to="/chooseasguest">
-                                <Button variant="outlined" fullWidth
+                                {/* <Button variant="outlined" fullWidth
                                     sx={{ mt: 2, mb: 3, color: "#7f56da", borderColor: "#7f56da" }}
                                 >
                                     Login as Guest
-                                </Button>
+                                </Button> */}
                             </StyledLink>
                             <StyledText>
                                 Don't have an account?{' '}
@@ -60,13 +60,16 @@ const StyledContainer = styled(Container)`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  
 `;
 
 const StyledPaper = styled.div`
   padding: 24px;
-  height: 100vh;
+  position: relative; /* Make positioning relative */
+  top: 50%; /* Position halfway down the container */
+  transform: translateY(-50%); /* Visually center by offsetting half its height */
+  elevation: 3;
 `;
-
 const StyledBox = styled(Box)`
   display: flex;
   flex-direction: column;
@@ -79,8 +82,12 @@ const StyledBox = styled(Box)`
 const StyledTitle = styled.h1`
   font-size: 3rem;
   color: #252525;
+  font-family:'georgia';
+  align-item:center;
   /* font-family: "Manrope"; */
   font-weight: bold;
+  font-size: 47px;
+  white-space: nowrap;
   padding-top: 0;
   letter-spacing: normal;
   line-height: normal;
@@ -89,11 +96,15 @@ const StyledTitle = styled.h1`
 const StyledText = styled.p`
   /* color: #550080; */
   margin-top: 30px;
-  margin-bottom: 30px; 
+  margin-bottom: 30px;
+  font-family:'georgia';
+  font-size: 20px;
   letter-spacing: normal;
   line-height: normal;
+  text-align:justify;
 `;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
+  font-family:'georgia';
 `;

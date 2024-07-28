@@ -62,32 +62,32 @@ const StudentProfile = () => {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <Typography variant="subtitle1" component="p">
-                  <strong>Date of Birth:</strong> January 1, 2000
+                  <strong>Date of Birth:</strong> January 1, 2001
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Typography variant="subtitle1" component="p">
-                  <strong>Gender:</strong> Male
+                  <strong>Gender:</strong> Female
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Typography variant="subtitle1" component="p">
-                  <strong>Email:</strong> john.doe@example.com
+                  <strong>Email:</strong> snighda@gmail.com
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Typography variant="subtitle1" component="p">
-                  <strong>Phone:</strong> (123) 456-7890
+                  <strong>Phone:</strong> 9456298456
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Typography variant="subtitle1" component="p">
-                  <strong>Address:</strong> 123 Main Street, City, Country
+                  <strong>Address:</strong> 123 Main Street, Puttur ,Dk
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Typography variant="subtitle1" component="p">
-                  <strong>Emergency Contact:</strong> (987) 654-3210
+                  <strong>Emergency Contact:</strong> 9449567234
                 </Typography>
               </Grid>
             </Grid>

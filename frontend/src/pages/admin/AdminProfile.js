@@ -5,7 +5,8 @@
 // import { useNavigate } from 'react-router-dom'
 // import { authLogout } from '../../redux/userRelated/userSlice';
 // import { Button, Collapse } from '@mui/material';
-
+import React from 'react';
+import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
 const AdminProfile = () => {
@@ -45,52 +46,19 @@ const AdminProfile = () => {
     // }
 
     return (
-        <div>
-            Name: {currentUser.name}
-            <br />
-            Email: {currentUser.email}
-            <br />
-            School: {currentUser.schoolName}
-            <br />
-            {/* <Button variant="contained" color="error" onClick={deleteHandler}>Delete</Button> */}
-            {/* <Button variant="contained" sx={styles.showButton}
-                onClick={() => setShowTab(!showTab)}>
-                {showTab ? <KeyboardArrowUp /> : <KeyboardArrowDown />}{buttonText}
-            </Button>
-            <Collapse in={showTab} timeout="auto" unmountOnExit>
-                <div className="register">
-                    <form className="registerForm" onSubmit={submitHandler}>
-                        <span className="registerTitle">Edit Details</span>
-                        <label>Name</label>
-                        <input className="registerInput" type="text" placeholder="Enter your name..."
-                            value={name}
-                            onChange={(event) => setName(event.target.value)}
-                            autoComplete="name" required />
-
-                        <label>School</label>
-                        <input className="registerInput" type="text" placeholder="Enter your school name..."
-                            value={schoolName}
-                            onChange={(event) => setSchoolName(event.target.value)}
-                            autoComplete="name" required />
-
-                        <label>Email</label>
-                        <input className="registerInput" type="email" placeholder="Enter your email..."
-                            value={email}
-                            onChange={(event) => setEmail(event.target.value)}
-                            autoComplete="email" required />
-
-                        <label>Password</label>
-                        <input className="registerInput" type="password" placeholder="Enter your password..."
-                            value={password}
-                            onChange={(event) => setPassword(event.target.value)}
-                            autoComplete="new-password" />
-
-                        <button className="registerButton" type="submit" >Update</button>
-                    </form>
-                </div>
-            </Collapse> */}
-        </div>
-    )
+        <Container>
+            <ProfileContainer>
+                <Heading>Profile Details</Heading>
+                <ProfileCard>
+                    <ProfileCardContent>
+                        <ProfileText><strong>Name: </strong>{currentUser.name}</ProfileText>
+                        <ProfileText><strong>Email: </strong>{currentUser.email}</ProfileText>
+                        <ProfileText><strong>School: </strong>{currentUser.schoolName}</ProfileText>
+                    </ProfileCardContent>
+                </ProfileCard>
+            </ProfileContainer>
+        </Container>
+    );
 }
 
 export default AdminProfile
@@ -103,3 +71,57 @@ export default AdminProfile
 //         }
 //     }
 // }
+
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #87bdd8, #333); /* Background gradient */
+`;
+
+const ProfileContainer = styled.div`
+  text-align: center;
+  
+`;
+
+const Heading = styled.h1`
+  margin-bottom: 20px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 24px;
+  color: black;
+  font-style:italic;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+`;
+
+const ProfileCard = styled.div`
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 400px;
+  position: relative;
+  transition: color 0.3s ease; /* Smooth transition for color change */
+  &:hover {
+    background-color: #3f51b5; /* Change color on hover */
+  }
+`;
+
+const ProfileCardContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the start (left) */
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  
+`;
+
+const ProfileText = styled.p`
+  margin: 10px 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  text-align: left; /* Align text to the left */
+  width: 100%;
+  
+`;

@@ -43,15 +43,15 @@ const ShowStudents = () => {
     const [message, setMessage] = React.useState("");
 
     const deleteHandler = (deleteID, address) => {
-        console.log(deleteID);
-        console.log(address);
-        setMessage("Sorry the delete function has been disabled for now.")
-        setShowPopup(true)
+        //console.log(deleteID);
+        //console.log(address);
+        //setMessage("Sorry the delete function has been disabled for now.")
+        //setShowPopup(true)
 
-        // dispatch(deleteUser(deleteID, address))
-        //     .then(() => {
-        //         dispatch(getAllStudents(currentUser._id));
-        //     })
+         dispatch(deleteUser(deleteID, address))
+             .then(() => {
+                dispatch(getAllStudents(currentUser._id));
+             })
     }
 
     const studentColumns = [
@@ -114,7 +114,7 @@ const ShowStudents = () => {
                     <PersonRemoveIcon color="error" />
                 </IconButton>
                 <BlueButton variant="contained"
-                    onClick={() => navigate("/Admin/students/student/" + row.id)}>
+                    onClick={() => navigate("/Admin/students/student/" + row.id)} style={{ marginRight: '6px' }}>
                     View
                 </BlueButton>
                 <React.Fragment>

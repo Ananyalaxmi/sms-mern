@@ -61,6 +61,7 @@ const ViewSubject = () => {
         <BlueButton
           variant="contained"
           onClick={() => navigate("/Admin/students/student/" + row.id)}
+          style={{ marginRight: '10px' }}
         >
           View
         </BlueButton>
@@ -143,38 +144,43 @@ const ViewSubject = () => {
 
   const SubjectDetailsSection = () => {
     const numberOfStudents = sclassStudents.length;
-
+    
     return (
-      <>
-        <Typography variant="h4" align="center" gutterBottom>
+      <Box sx={{ maxWidth: '600px', margin: 'auto', padding: '20px', border: '1px solid #ddd', borderRadius: '8px', backgroundColor: '#f9f9f9', textAlign: 'center' }}>
+        <Typography variant="h4" gutterBottom sx={{ fontFamily: 'Georgia, serif', fontWeight: 'bold' }}>
           Subject Details
         </Typography>
-        <Typography variant="h6" gutterBottom>
-          Subject Name : {subjectDetails && subjectDetails.subName}
-        </Typography>
-        <Typography variant="h6" gutterBottom>
-          Subject Code : {subjectDetails && subjectDetails.subCode}
-        </Typography>
-        <Typography variant="h6" gutterBottom>
-          Subject Sessions : {subjectDetails && subjectDetails.sessions}
-        </Typography>
-        <Typography variant="h6" gutterBottom>
-          Number of Students: {numberOfStudents}
-        </Typography>
-        <Typography variant="h6" gutterBottom>
-          Class Name : {subjectDetails && subjectDetails.sclassName && subjectDetails.sclassName.sclassName}
-        </Typography>
-        {subjectDetails && subjectDetails.teacher ?
-          <Typography variant="h6" gutterBottom>
-            Teacher Name : {subjectDetails.teacher.name}
+        <Box sx={{ textAlign: 'justify',display: 'inline-block', maxWidth: '100%',fontFamily: 'Georgia, serif'}}>
+          <Typography variant="h6" gutterBottom >
+            Subject Name: {subjectDetails && subjectDetails.subName}
           </Typography>
-          :
-          <GreenButton variant="contained"
-            onClick={() => navigate("/Admin/teachers/addteacher/" + subjectDetails._id)}>
-            Add Subject Teacher
-          </GreenButton>
-        }
-      </>
+          <Typography variant="h6" gutterBottom>
+            Subject Code: {subjectDetails && subjectDetails.subCode}
+          </Typography>
+          <Typography variant="h6" gutterBottom>
+            Subject Sessions: {subjectDetails && subjectDetails.sessions}
+          </Typography>
+          <Typography variant="h6" gutterBottom>
+            Number of Students: {numberOfStudents}
+          </Typography>
+          <Typography variant="h6" gutterBottom>
+            Class Name: {subjectDetails && subjectDetails.sclassName && subjectDetails.sclassName.sclassName}
+          </Typography>
+          {subjectDetails && subjectDetails.teacher ? (
+            <Typography variant="h6" gutterBottom>
+              Teacher Name: {subjectDetails.teacher.name}
+            </Typography>
+          ) : (
+            <GreenButton
+              variant="contained"
+              onClick={() => navigate("/Admin/teachers/addteacher/" + subjectDetails._id)}
+              sx={{ marginTop: '10px',  fontFamily: 'Georgia, serif'}}
+            >
+              Add Subject Teacher
+            </GreenButton>
+          )}
+        </Box>
+      </Box>
     );
   }
 

@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import React from 'react';
+import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom'
 import { getClassDetails, getClassStudents, getSubjectList } from "../../../redux/sclassRelated/sclassHandle";
@@ -24,9 +26,9 @@ const ClassDetails = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const { subjectsList, sclassStudents, sclassDetails, loading, error, response, getresponse } = useSelector((state) => state.sclass);
+    const { teachersList} = useSelector((state) => state.teacher);
 
     const classID = params.id
-
     useEffect(() => {
         dispatch(getClassDetails(classID, "Sclass"));
         dispatch(getSubjectList(classID, "ClassSubjects"))
@@ -139,7 +141,8 @@ const ClassDetails = () => {
             id: student._id,
         };
     })
-
+  console.log("teachersList",teachersList)
+    
     const StudentsButtonHaver = ({ row }) => {
         return (
             <>
@@ -149,6 +152,7 @@ const ClassDetails = () => {
                 <BlueButton
                     variant="contained"
                     onClick={() => navigate("/Admin/students/student/" + row.id)}
+                    style={{ marginRight: '6px' }}
                 >
                     View
                 </BlueButton>
@@ -202,11 +206,56 @@ const ClassDetails = () => {
             </>
         )
     }
+    const teacherColumns = [
+        { id: 'name', label: 'Name', minWidth: 170 },
+        { id: 'email', label: 'Email', minWidth: 100 },
+    ];
+
+
+    // const teacherRows = teachers && teachers.length > 0 && teachers.map((teacher) => {
+    //     return {
+    //         name: teacher.name,
+    //         email: teacher.email,
+    //         subject: teacher.subjects.join(", "), // Assuming subjects is an array
+    //         id: teacher._id,
+    //     };
+    // });
+
+    const TeachersButtonHaver = ({ row }) => {
+        return (
+            <>
+                <BlueButton
+                    variant="contained"
+                    onClick={() => navigate("/Admin/teachers/teacher/" + row.id)}
+                >
+                    View
+                </BlueButton>
+                
+            </>
+        );
+    };
+
+    const teacherActions = [
+        {
+            icon: <PersonAddAlt1Icon color="primary" />, name: 'Add New Teacher',
+            action: () => navigate(`/Admin/class/addteachers/${classID}`)
+        },
+        {
+            icon: <PersonRemoveIcon color="error" />, name: 'Delete All Teachers',
+            action: () => deleteHandler(classID, "TeachersClass")
+        },
+    ];
+
+
 
     const ClassTeachersSection = () => {
         return (
             <>
-                Teachers
+                <Typography variant="h5" gutterBottom>
+                    Teachers List:
+                </Typography>
+                <TableTemplate buttonHaver={TeachersButtonHaver} columns={teacherColumns} rows={teachersList} />
+                <SpeedDialTemplate actions={teacherActions} />
             </>
         )
     }
@@ -216,39 +265,38 @@ const ClassDetails = () => {
         const numberOfStudents = sclassStudents.length;
 
         return (
-            <>
+            <DetailsContainer>
                 <Typography variant="h4" align="center" gutterBottom>
                     Class Details
                 </Typography>
                 <Typography variant="h5" gutterBottom>
                     This is Class {sclassDetails && sclassDetails.sclassName}
                 </Typography>
-                <Typography variant="h6" gutterBottom>
+                <DetailsText>
                     Number of Subjects: {numberOfSubjects}
-                </Typography>
-                <Typography variant="h6" gutterBottom>
+                </DetailsText>
+                <DetailsText>
                     Number of Students: {numberOfStudents}
-                </Typography>
-                {getresponse &&
-                    <GreenButton
-                        variant="contained"
-                        onClick={() => navigate("/Admin/class/addstudents/" + classID)}
-                    >
-                        Add Students
-                    </GreenButton>
-                }
+                </DetailsText>
                 {response &&
-                    <GreenButton
-                        variant="contained"
-                        onClick={() => navigate("/Admin/addsubject/" + classID)}
-                    >
-                        Add Subjects
-                    </GreenButton>
+                    <ButtonContainer>
+                        <GreenButton
+                            variant="contained"
+                            onClick={() => navigate("/Admin/class/addstudents/" + classID)}
+                        >
+                            Add Students
+                        </GreenButton>
+                        <GreenButton
+                            variant="contained"
+                            onClick={() => navigate("/Admin/addsubject/" + classID)}
+                        >
+                            Add Subjects
+                        </GreenButton>
+                    </ButtonContainer>
                 }
-            </>
+            </DetailsContainer>
         );
-    }
-
+    };
     return (
         <>
             {loading ? (
@@ -289,3 +337,23 @@ const ClassDetails = () => {
 };
 
 export default ClassDetails;
+const DetailsContainer = styled.div`
+    text-align: center;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+`;
+
+const DetailsText = styled(Typography)`
+    margin: 10px 0;
+    font-size: 18px;
+`;
+
+const ButtonContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+`;

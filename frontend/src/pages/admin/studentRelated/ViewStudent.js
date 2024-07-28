@@ -102,13 +102,13 @@ const ViewStudent = () => {
     }
 
     const deleteHandler = () => {
-        setMessage("Sorry the delete function has been disabled for now.")
-        setShowPopup(true)
+        //setMessage("Sorry the delete function has been disabled for now.")
+        //setShowPopup(true)
 
-        // dispatch(deleteUser(studentID, address))
-        //     .then(() => {
-        //         navigate(-1)
-        //     })
+        dispatch(deleteUser(studentID, address))
+            .then(() => {
+                 navigate(-1)
+             })
     }
 
     const removeHandler = (id, deladdress) => {
@@ -147,7 +147,7 @@ const ViewStudent = () => {
         const renderTableSection = () => {
             return (
                 <>
-                    <h3>Attendance:</h3>
+                    <h3>ATTENDANCE:</h3>
                     <Table>
                         <TableHead>
                             <StyledTableRow>
@@ -272,7 +272,7 @@ const ViewStudent = () => {
         const renderTableSection = () => {
             return (
                 <>
-                    <h3>Subject Marks:</h3>
+                    <h3>SUBJECT MARKS:</h3>
                     <Table>
                         <TableHead>
                             <StyledTableRow>
@@ -341,22 +341,29 @@ const ViewStudent = () => {
 
     const StudentDetailsSection = () => {
         return (
-            <div>
-                Name: {userDetails.name}
-                <br />
-                Roll Number: {userDetails.rollNum}
-                <br />
-                Class: {sclassName.sclassName}
-                <br />
-                School: {studentSchool.schoolName}
-                {
-                    subjectAttendance && Array.isArray(subjectAttendance) && subjectAttendance.length > 0 && (
-                        <CustomPieChart data={chartData} />
-                    )
-                }
-                <Button variant="contained" sx={styles.styledButton} onClick={deleteHandler}>
-                    Delete
-                </Button>
+            <div style={{ maxWidth: '600px', margin: 'auto', textAlign: 'left',fontFamily: 'Arial, sans-serif'}}>
+            <h2>STUDENT DETAILS</h2>
+            <br></br>
+            <div style={{ fontFamily: 'Arial, sans-serif' }}>
+                <strong>NAME:</strong> {userDetails.name}
+            </div>
+            <div style={{ fontFamily: 'Arial, sans-serif' }}>
+                <strong>ROLL NUMBER:</strong> {userDetails.rollNum}
+            </div>
+            <div  style={{ fontFamily: 'Arial, sans-serif' }}>
+                <strong>CLASS:</strong> {sclassName && sclassName.sclassName}
+            </div>
+            <div style={{ fontFamily: 'Arial, sans-serif' }}>
+                <strong>SCHOOL:</strong> {studentSchool && studentSchool.schoolName}
+            </div>
+            {subjectAttendance && Array.isArray(subjectAttendance) && subjectAttendance.length > 0 && (
+                <div style={{  marginLeft: '-450px'}}>
+                    <CustomPieChart data={chartData} />
+                </div>
+            )}
+            <Button variant="contained" sx={{ backgroundColor: '#02250b', '&:hover': { backgroundColor: '#106312' } }} onClick={deleteHandler}>
+                Delete
+            </Button>
                 <br />
                 {/* <Button variant="contained" sx={styles.styledButton} className="show-tab" onClick={() => { setShowTab(!showTab) }}>
                     {
@@ -395,6 +402,7 @@ const ViewStudent = () => {
             </div>
         )
     }
+
 
     return (
         <>
